@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-    Collection of python utility scripts
+    Collection of python utility scripts for OSX
 
     @author: Jean-Lou Dupont
 """
@@ -20,5 +20,7 @@ setup(name=         'jld_osx',
       packages=     find_packages("src"),
       scripts=      [ 'src/scripts/itunes_update_playcount'
                      ],
+      install_requires=[ "appscript >= 0.21"
+                        ],
       zip_safe=False
       )
