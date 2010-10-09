@@ -156,8 +156,8 @@ def process(path, execute, verbose):
         if l.startswith("#"):
             continue
         
-        if verbose:
-            print "# processing line: %s" % l
+        #if verbose:
+        #    print "# processing line: %s" % l
         fields=get_fields(l)
         validate_fields(fields)
         
