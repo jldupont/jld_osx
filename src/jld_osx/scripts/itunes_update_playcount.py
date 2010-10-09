@@ -152,8 +152,8 @@ def process(path, execute, verbose):
         raise Exception("invalid input file format")
     
     for line in lines:
-        l=line.strip(" ").strip("\r")
-        if l.startswith("#"):
+        l=line.strip(" \r")
+        if l.startswith("#") or l=="":
             continue
         
         #if verbose:
