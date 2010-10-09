@@ -117,6 +117,26 @@ def validate_fields(fields):
     except:
         raise Exception("field 'playcount' must be an integer")
     
+def findSongsByArtist(it, artist):
+    songs=it.findByArtist(artist)
+    return songs
+
+def findSongsByTrackName(it, name):
+    return it.findBySong(name)
+
+def findMatch(it, songs_by_artist, songs_by_track_name):
+    """
+    Just need to check which song database ID matches
+    in both lists
+    """
+    for asong in songs_by_artist:
+        for tsong in songs_by_track_name:
+            aid=it.getSongId(asong)
+            tid=it.getSongId(tsong)
+            if aid==tid:
+                return asong
+    return None
+             
     
 def process(path, execute, verbose):
     try:
@@ -127,17 +147,30 @@ def process(path, execute, verbose):
     c=read_input_file(path)
     
     try:
-        lines=c.split("\r")
+        lines=c.split("\r").strip(" ")
     except:
         raise Exception("invalid input file format")
     
     for line in lines:
+        if line.startswith("#"):
+            
+            continue
         if verbose:
             print "# processing line: %s" % line
         fields=get_fields(line)
         validate_fields(fields)
         
-    
+        artist, track, playcount=fields        
+        list1=findSongsByArtist(artist)
+        list2=findSongsByTrackName(track)
+        
+        match=findMatch(it, list1, list2)
+        if match is None:
+            print "%s  %s  %s" % (artist, track, playcount)
+        else:
+            if verbose:
+                print "# FOUND: %s  %s  %s" % (artist, track, playcount)
+ 
 
 
 
