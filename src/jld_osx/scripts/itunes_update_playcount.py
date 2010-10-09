@@ -147,17 +147,18 @@ def process(path, execute, verbose):
     c=read_input_file(path)
     
     try:
-        lines=c.split("\r").strip(" ")
+        lines=c.split("\r")
     except:
         raise Exception("invalid input file format")
     
     for line in lines:
-        if line.startswith("#"):
+        l=line.strip(" ")
+        if l.startswith("#"):
             
             continue
         if verbose:
-            print "# processing line: %s" % line
-        fields=get_fields(line)
+            print "# processing line: %s" % l
+        fields=get_fields(l)
         validate_fields(fields)
         
         artist, track, playcount=fields        
