@@ -152,10 +152,10 @@ def process(path, execute, verbose):
         raise Exception("invalid input file format")
     
     for line in lines:
-        l=line.strip(" ")
+        l=line.strip(" ").strip("\r")
         if l.startswith("#"):
-            
             continue
+        
         if verbose:
             print "# processing line: %s" % l
         fields=get_fields(l)
