@@ -36,11 +36,17 @@ class itunes(object):
     def getSongPlaycount(self, item):
         return item.played_count()
     
+    def getSongId(self, item):
+        return item.database_ID()
+        
 if __name__=="__main__":
     i=itunes()
     list=i.findByArtist("Xandria")
     for item in list:
-        print i.getSongName(item)
+        a=i.getSongArtist(item)
+        id=i.getSongId(item)
+        t=i.getSongName(item)
+        print "id(%s) artist: %s, track: %s" % (id, a, t)
         
     
     

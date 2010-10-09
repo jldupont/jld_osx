@@ -20,7 +20,7 @@ setup(name=         'jld_osx',
       packages=     find_packages("src"),
       scripts=      [ 'src/scripts/itunes_update_playcount'
                      ],
-      install_requires=[ "appscript >= 0.21"
+      install_requires=[ "appscript >= 0.21", "jld_scripts >= 0.6"
                         ],
       zip_safe=False
       )
