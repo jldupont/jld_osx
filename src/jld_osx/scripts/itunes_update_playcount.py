@@ -165,8 +165,8 @@ def process(path, execute, verbose):
         validate_fields(fields)
         
         artist, track, playcount=fields        
-        list1=findSongsByArtist(it, unicode(artist.lower()))
-        list2=findSongsByTrackName(it, unicode(track.lower()))
+        list1=findSongsByArtist(it, unicode(artist.lower(), "utf-8"))
+        list2=findSongsByTrackName(it, unicode(track.lower(), "utf-8"))
         
         total+=1
         match=findMatch(it, list1, list2)
