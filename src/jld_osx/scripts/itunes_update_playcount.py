@@ -74,7 +74,7 @@ def main():
 
     if options.verbose:
         print "## input filepath: %s" % path
-        if options.execute:
+        if not options.execute:
             print "## SIMULATION ONLY"
 
     try:

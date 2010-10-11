@@ -25,7 +25,7 @@ class itunes(object):
     ############################################################################ SONG RELATED
         
     def setSongPlaycount(self, item, playcount):
-        item.set(item.play_count, to=playcount)
+        item.set(item.played_count, to=playcount)
         
     def getSongName(self, item):
         return item.name()
