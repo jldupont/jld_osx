@@ -25,9 +25,7 @@ from jld_scripts.system.messaging import UserMessaging
 
 from jld_osx.itunes.helpers import itunes
 
-TIMEOUT = 30
-LIBRARY_GETTRACKS_URL="http://ws.audioscrobbler.com/2.0/?method=library.gettracks&user=%s&page=%s&api_key=%s"
-API_KEY="50fa3794354dd9d42fc251416f523388"
+TO_REMOVE_LEADING=["a ", "the "]
 
 webhelp_url="http://www.systemical.com/doc/opensource/itunes_update_playcount"
 sname="itunes_update_playcount"
@@ -136,7 +134,14 @@ def findMatch(it, songs_by_artist, songs_by_track_name):
             if aid==tid:
                 return asong
     return None
-             
+          
+def prepare_string(string):
+    s=string.lower().strip()
+    for t in TO_REMOVE_LEADING:
+        if s.startswith(t):
+            s=s[len(t):]
+    return s
+       
     
 def process(path, execute, verbose):
     try:
@@ -165,9 +170,11 @@ def process(path, execute, verbose):
         fields=get_fields(l)
         validate_fields(fields)
         
-        artist, track, playcount=fields        
-        list1=findSongsByArtist(it, unicode(artist.lower(), "utf-8"))
-        list2=findSongsByTrackName(it, unicode(track.lower(), "utf-8"))
+        artist, track, playcount=fields
+        a=prepare_string(artist)
+        t=prepare_string(track)   
+        list1=findSongsByArtist(it, unicode(a, "utf-8"))
+        list2=findSongsByTrackName(it, unicode(t, "utf-8"))
         
         total+=1
         match=findMatch(it, list1, list2)
@@ -177,6 +184,8 @@ def process(path, execute, verbose):
             found+=1
             if verbose:
                 print "# FOUND: %s  %s  %s" % (artist, track, playcount)
+            if execute:
+                it.setSongPlaycount(match, playcount)
  
     print "# total: %s, found: %s" % (total, found)
 
