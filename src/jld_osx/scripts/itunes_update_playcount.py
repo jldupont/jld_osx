@@ -148,6 +148,7 @@ def process(path, execute, verbose):
     
     try:
         lines=c.split("\r")
+        lines=c.split("\n")
     except:
         raise Exception("invalid input file format")
     
@@ -159,8 +160,8 @@ def process(path, execute, verbose):
         if l.startswith("#") or l=="":
             continue
         
-        #if verbose:
-        #    print "# processing line: %s" % l
+        if verbose:
+            print "# processing line: %s" % l
         fields=get_fields(l)
         validate_fields(fields)
         
