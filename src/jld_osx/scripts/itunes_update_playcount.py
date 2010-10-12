@@ -57,6 +57,11 @@ def main():
     options, args=o.parse()
     um=UserMessaging(sname, False, prepend="#")
     
+    if options.webhelp:
+        import webbrowser
+        webbrowser.open(webhelp_url)
+        sys.exit(0)
+    
     if len(args) != 1:
         um.error(messages["args"])
         sys.exit(1)
